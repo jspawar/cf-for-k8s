@@ -60,6 +60,9 @@ CF_VALUES=/tmp/cf-install-values.yml
 CF_RENDERED=/tmp/cf-rendered.yml
 cd /tmp/minikube/cf-for-k8s
 ytt -f config -f \$CF_VALUES > \$CF_RENDERED
+
+timeout 240 sudo minikube tunnel >/dev/null &
+
 kapp deploy -f \$CF_RENDERED -a cf -y
 EOT
 
