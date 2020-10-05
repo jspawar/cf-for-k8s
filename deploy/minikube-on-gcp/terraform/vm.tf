@@ -31,7 +31,7 @@ resource "google_compute_instance" "default" {
   boot_disk {
     initialize_params {
       size = 100
-      image = "projects/cf-relint-greengrass/global/images/nested-vm-on-ubuntu-image"
+      image = "cos-cloud/cos-stable"
     }
   }
 
@@ -92,10 +92,6 @@ EOF
   retry 5 curl -Lo ./jq "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64"
   chmod +x jq
   jq --version
-
-  echo "Installing virtualbox..."
-  sudo apt-get update
-  sudo apt-get install -y virtualbox
 
   echo "Installing minikube..."
   retry 5 curl -Lo ./minikube "https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64"

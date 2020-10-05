@@ -54,6 +54,7 @@ set -euo pipefail
 
 export HOME=/tmp/minikube
 export PATH="/tmp/minikube/bin:/tmp/minikube/go/bin:\$PATH"
+eval $(minikube docker-env --shell=bash)
 
 CF_VALUES=/tmp/cf-install-values.yml
 CF_RENDERED=/tmp/cf-rendered.yml
@@ -63,7 +64,6 @@ ytt -f config -f \$CF_VALUES > \$CF_RENDERED
 
 sleep 100000
 
-eval "\$(minikube docker-env)"
 kapp deploy -f \$CF_RENDERED -a cf -y
 EOT
 
