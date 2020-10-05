@@ -12,8 +12,9 @@ export PATH=/tmp/minikube/bin:/tmp/minikube/go/bin:\$PATH
 export CGO_ENABLED=0
 export GO111MODULE=on
 
-export SMOKE_TEST_API_ENDPOINT="https://api.vcap.me"
-export SMOKE_TEST_APPS_DOMAIN=apps.vcap.me
+DOMAIN="\$(minikube ip).nip.io"
+export SMOKE_TEST_API_ENDPOINT="api.\${DOMAIN}"
+export SMOKE_TEST_APPS_DOMAIN="apps.\${DOMAIN}"
 export SMOKE_TEST_USERNAME=admin
 # The yq command to interpolate the CF admin password needs to run on the Concourse worker
 export SMOKE_TEST_PASSWORD="$(yq -r '.cf_admin_password' cf-install-values/cf-install-values.yml)"
